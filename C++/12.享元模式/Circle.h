@@ -31,10 +31,10 @@ class Circle : public Shape {
     }
 
    private:
-    int x_;
-    int y_;
-    int radius_;
-    std::string color_;
+    int x_ = 0;
+    int y_ = 0;
+    int radius_ = 0;
+    std::string color_ = nullptr;
 };
 
 #endif  // CIRCLE_H_

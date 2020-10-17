@@ -85,8 +85,7 @@ void *cmap_index_get(void *data, int index);
  * @param parm Opaque
  * @param enu 遍历函数指针
  */
-void cmap_traversal_handle(void *data, void *parm,
-                           int (*enu)(void *parm, int64_t key, void *elem));
+void cmap_traversal_handle(void *data, void *parm, int (*enu)(void *parm, int64_t key, void *elem));
 
 /**
  * @brief 获取所有的key

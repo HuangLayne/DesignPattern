@@ -7,7 +7,8 @@ int main() {
     ptr3 = (float *)realloc(ptr3, 100 * sizeof(float));
     (void)ptr1;
 
+    free(ptr1);
     free(ptr2);
-    // free(ptr2);
+    free(ptr3);
     return 0;
 }

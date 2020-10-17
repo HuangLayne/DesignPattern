@@ -80,7 +80,7 @@ UNUSED static void report_to_file() {
             fwrite(info, (strlen(info) + 1), 1, fp_write);
             sprintf(info, "thread  : %lld\n", (long long)leak_info->mem_info.thread_id);
             fwrite(info, (strlen(info) + 1), 1, fp_write);
-            sprintf(info, "place   : %s:%d\n", leak_info->mem_info.file_name, leak_info->mem_info.line);
+            sprintf(info, "place   : %s:%u\n", leak_info->mem_info.file_name, leak_info->mem_info.line);
             fwrite(info, (strlen(info) + 1), 1, fp_write);
             sprintf(info, "size    : %zu bytes\n", leak_info->mem_info.size);
             fwrite(info, (strlen(info) + 1), 1, fp_write);

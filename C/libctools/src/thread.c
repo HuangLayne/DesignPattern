@@ -28,7 +28,7 @@ static void *thread_run(void *data) {
 #include <sys/syscall.h>
 static void *thread_run(void *data) {
     Thread *thread = data;
-//    log_info("thread_run: [%d] %s", syscall(__NR_getthreadid), thread->name);
+    //    log_info("thread_run: [%d] %s", syscall(__NR_getthreadid), thread->name);
     // pthread_setname_np(pthread_self(), thread->name);
     thread->retval = thread->func(thread->data);
 #ifdef __ANDROID__
@@ -38,8 +38,7 @@ static void *thread_run(void *data) {
 }
 #endif
 
-Thread *thread_create(Thread *thread, int (*fn)(void *), void *data,
-                      const char *name) {
+Thread *thread_create(Thread *thread, int (*fn)(void *), void *data, const char *name) {
     thread->func = fn;
     thread->data = data;
     strncpy(thread->name, name, THREAD_FILE_NAME_LENGTH);
@@ -65,8 +64,7 @@ int thread_set_priority(ThreadPriority priority) {
     } else {
         int min_priority = sched_get_priority_min(policy);
         int max_priority = sched_get_priority_max(policy);
-        sched.sched_priority =
-            (min_priority + (max_priority - min_priority) / 2);
+        sched.sched_priority = (min_priority + (max_priority - min_priority) / 2);
     }
     if (pthread_setschedparam(thread, policy, &sched) < 0) {
         log_error("pthread_setschedparam() failed");

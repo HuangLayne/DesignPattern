@@ -12,6 +12,8 @@
 #ifndef SHAPE_MAKER_H_
 #define SHAPE_MAKER_H_
 
+#include <memory>
+
 #include "Circle.h"
 #include "Rectangle.h"
 #include "Square.h"
@@ -19,32 +21,19 @@
 class ShapeMaker {
    public:
     ShapeMaker() {
-        circle_ = new Circle();
-        rectangle_ = new Rectangle();
-        square_ = new Square();
+        circle_ = std::make_shared<Circle>();
+        rectangle_ = std::make_shared<Rectangle>();
+        square_ = std::make_shared<Square>();
     }
-    ~ShapeMaker() {
-        if (nullptr != circle_) {
-            delete circle_;
-            circle_ = nullptr;
-        }
-        if (nullptr != rectangle_) {
-            delete rectangle_;
-            rectangle_ = nullptr;
-        }
-        if (nullptr != square_) {
-            delete square_;
-            square_ = nullptr;
-        }
-    }
+    ~ShapeMaker() = default;
     void DrawCircle() { circle_->Draw(); }
     void DrawRectangle() { rectangle_->Draw(); }
     void DrawSquare() { square_->Draw(); }
 
    private:
-    Circle *circle_;
-    Rectangle *rectangle_;
-    Square *square_;
+    std::shared_ptr<Circle> circle_;
+    std::shared_ptr<Rectangle> rectangle_;
+    std::shared_ptr<Square> square_;
 };
 
 #endif  // SHAPE_MAKER_H_

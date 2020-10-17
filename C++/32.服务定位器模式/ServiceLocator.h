@@ -21,11 +21,9 @@ class ServiceLocator {
     std::shared_ptr<Service> GetService(std::string jndi_name) {
         std::shared_ptr<Service> service = cache_->GetService(jndi_name);
         if (nullptr != service) return service;
-        InitialContext* context = new InitialContext();
+        std::shared_ptr<InitialContext> context = std::make_shared<InitialContext>();
         std::shared_ptr<Service> service1 = context->Lookup(jndi_name);
         cache_->AddService(service1);
-        delete context;
-        context = nullptr;
         return service1;
     }
 

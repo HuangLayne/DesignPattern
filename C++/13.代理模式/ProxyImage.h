@@ -11,27 +11,25 @@
 
 #ifndef PROXY_IMAGE_H_
 #define PROXY_IMAGE_H_
+
+#include <memory>
+
 #include "RealImage.h"
 
 class ProxyImage : public Image {
    public:
     ProxyImage(std::string file_name) : file_name_(file_name) {}
-    virtual ~ProxyImage() {
-        if (nullptr != real_image_) {
-            delete real_image_;
-            real_image_ = nullptr;
-        }
-    }
+    virtual ~ProxyImage() = default;
     void Display() override {
         if (nullptr == real_image_) {
-            real_image_ = new RealImage(file_name_);
+            real_image_ = std::make_shared<RealImage>(file_name_);
         }
         real_image_->Display();
     }
 
    private:
     std::string file_name_ = nullptr;
-    RealImage* real_image_ = nullptr;
+    std::shared_ptr<RealImage> real_image_ = nullptr;
 };
 
 #endif  //  PROXY_IMAGE_H_

@@ -108,24 +108,21 @@ static char get_leve_flag(const LogLevel level) {
     return 'E';
 }
 
-static void update_buffer(const LogLevel level, const char *filename,
-                          const int line, const char *format, va_list args) {
+static void update_buffer(const LogLevel level, const char *filename, const int line, const char *format,
+                          va_list args) {
     char *basename = strrchr(filename, '/') + 1;
     size_t len = 0;
 
     if (LOG_MODE_ANDROID == self_log_mode) {
-        len += snprintf(self_log_buffer + len, MAX_BUFFER_SIZE - len,
-                        "/%s:%d:", basename, line);
+        len += snprintf(self_log_buffer + len, MAX_BUFFER_SIZE - len, "/%s:%d:", basename, line);
     } else {
         pid_t pid = getpid();
         pid_t tid = getthreadid();
         struct timespec ts;
         clock_gettime(CLOCK_REALTIME, &ts);
-        len += strftime(self_log_buffer, sizeof(self_log_buffer), "%Y/%m/%d %T",
-                        localtime(&ts.tv_sec));
-        len += snprintf(self_log_buffer + len, MAX_BUFFER_SIZE - len,
-                        ".%06ld %d-%d/%c/%s:%d:", ts.tv_nsec / 1000, pid, tid,
-                        get_leve_flag(level), basename, line);
+        len += strftime(self_log_buffer, sizeof(self_log_buffer), "%Y/%m/%d %T", localtime(&ts.tv_sec));
+        len += snprintf(self_log_buffer + len, MAX_BUFFER_SIZE - len, ".%06ld %d-%d/%c/%s:%d:", ts.tv_nsec / 1000, pid,
+                        tid, get_leve_flag(level), basename, line);
     }
     vsnprintf(self_log_buffer + len, MAX_BUFFER_SIZE - len, format, args);
 }
@@ -194,8 +191,7 @@ static void log_to_android(const LogLevel level) {
 }
 #endif
 
-void log_print(const LogLevel level, const char *filename, const int line,
-               const char *format, ...) {
+void log_print(const LogLevel level, const char *filename, const int line, const char *format, ...) {
     if (level < self_log_level || LOG_MODE_NONE == self_log_mode) return;
 
     pthread_mutex_lock(&self_log_lock);

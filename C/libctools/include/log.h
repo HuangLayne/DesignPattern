@@ -81,37 +81,28 @@ void log_set_callback(LogCallback callback_function, void *opaque);
  * @param format 输出格式
  * @param ... 参数
  */
-void log_print(const LogLevel level, const char *filename, const int line,
-               const char *format, ...);
+void log_print(const LogLevel level, const char *filename, const int line, const char *format, ...);
 
-#define log_trace_priv(format, ...) \
-    log_print(LOG_LEVEL_TRACE, __FILE__, __LINE__, format "%s", __VA_ARGS__)
+#define log_trace_priv(format, ...) log_print(LOG_LEVEL_TRACE, __FILE__, __LINE__, format "%s", __VA_ARGS__)
 
-#define log_debug_priv(format, ...) \
-    log_print(LOG_LEVEL_DEBUG, __FILE__, __LINE__, format "%s", __VA_ARGS__)
+#define log_debug_priv(format, ...) log_print(LOG_LEVEL_DEBUG, __FILE__, __LINE__, format "%s", __VA_ARGS__)
 
-#define log_verbose_priv(format, ...) \
-    log_print(LOG_LEVEL_VERBOSE, __FILE__, __LINE__, format "%s", __VA_ARGS__)
+#define log_verbose_priv(format, ...) log_print(LOG_LEVEL_VERBOSE, __FILE__, __LINE__, format "%s", __VA_ARGS__)
 
-#define log_info_priv(format, ...) \
-    log_print(LOG_LEVEL_INFO, __FILE__, __LINE__, format "%s", __VA_ARGS__)
+#define log_info_priv(format, ...) log_print(LOG_LEVEL_INFO, __FILE__, __LINE__, format "%s", __VA_ARGS__)
 
-#define log_warning_priv(format, ...) \
-    log_print(LOG_LEVEL_WARNING, __FILE__, __LINE__, format "%s", __VA_ARGS__)
+#define log_warning_priv(format, ...) log_print(LOG_LEVEL_WARNING, __FILE__, __LINE__, format "%s", __VA_ARGS__)
 
-#define log_error_priv(format, ...) \
-    log_print(LOG_LEVEL_ERROR, __FILE__, __LINE__, format "%s", __VA_ARGS__)
+#define log_error_priv(format, ...) log_print(LOG_LEVEL_ERROR, __FILE__, __LINE__, format "%s", __VA_ARGS__)
 
-#define log_fatal_priv(format, ...)                                 \
-    do {                                                            \
-        log_print(LOG_LEVEL_FATAL, __FILE__, __LINE__, format "%s", \
-                  __VA_ARGS__);                                     \
+#define log_fatal_priv(format, ...)                                               \
+    do {                                                                          \
+        log_print(LOG_LEVEL_FATAL, __FILE__, __LINE__, format "%s", __VA_ARGS__); \
     } while (0)
 
-#define log_panic_priv(format, ...)                                 \
-    do {                                                            \
-        log_print(LOG_LEVEL_PANIC, __FILE__, __LINE__, format "%s", \
-                  __VA_ARGS__);                                     \
+#define log_panic_priv(format, ...)                                               \
+    do {                                                                          \
+        log_print(LOG_LEVEL_PANIC, __FILE__, __LINE__, format "%s", __VA_ARGS__); \
     } while (0)
 
 #define log_trace(...) log_trace_priv(__VA_ARGS__, "\n")

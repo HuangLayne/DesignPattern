@@ -14,9 +14,9 @@
 #include "RedShapeDecorator.h"
 
 int main(int argc, char const *argv[]) {
-    Shape *circle = new Circle();
-    ShapeDecorator *red_circle = new RedShapeDecorator(std::make_shared<Circle>());
-    ShapeDecorator *red_rectangle = new RedShapeDecorator(std::make_shared<Rectangle>());
+    std::shared_ptr<Shape> circle = std::make_shared<Circle>();
+    std::shared_ptr<ShapeDecorator> red_circle = std::make_shared<RedShapeDecorator>(std::make_shared<Circle>());
+    std::shared_ptr<ShapeDecorator> red_rectangle = std::make_shared<RedShapeDecorator>(std::make_shared<Rectangle>());
 
     std::cout << "Circle with normal border" << std::endl;
     circle->Draw();
@@ -27,17 +27,5 @@ int main(int argc, char const *argv[]) {
     std::cout << "\nRectangle of red border" << std::endl;
     red_rectangle->Draw();
 
-    if (nullptr != circle) {
-        delete circle;
-        circle = nullptr;
-    }
-    if (nullptr != red_circle) {
-        delete red_circle;
-        red_circle = nullptr;
-    }
-    if (nullptr != red_rectangle) {
-        delete red_rectangle;
-        red_rectangle = nullptr;
-    }
     return 0;
 }

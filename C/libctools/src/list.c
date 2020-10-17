@@ -213,7 +213,4 @@ ListNode *list_iterator_next(ListIterator *iterator) {
     return curr;
 }
 
-void list_iterator_destroy(ListIterator *self) {
-    free(self);
-    self = NULL;
-}
+void list_iterator_destroy(ListIterator *self) { free(self); }

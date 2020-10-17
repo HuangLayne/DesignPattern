@@ -12,16 +12,12 @@
 #include "ProxyImage.h"
 
 int main(int argc, char const *argv[]) {
-    Image *image = new ProxyImage("test_10mb.jpg");
+    std::shared_ptr<Image> image = std::make_shared<ProxyImage>("test_10mb.jpg");
     image->Display();
 
     std::cout << std::endl;
 
     image->Display();
 
-    if (nullptr != image) {
-        delete image;
-        image = nullptr;
-    }
     return 0;
 }

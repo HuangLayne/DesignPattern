@@ -12,18 +12,15 @@
 #ifndef BUSINESS_DELEGATE_H_
 #define BUSINESS_DELEGATE_H_
 
+#include <memory>
+
 #include "BusinessLookUp.h"
 #include "BusinessService.h"
 
 class BusinessDelegate {
    public:
-    BusinessDelegate() { business_look_up_ = new BusinessLookUp(); }
-    ~BusinessDelegate() {
-        if (nullptr != business_look_up_) {
-            delete business_look_up_;
-            business_look_up_ = nullptr;
-        }
-    }
+    BusinessDelegate() { business_look_up_ = std::make_shared<BusinessLookUp>(); }
+    ~BusinessDelegate() = default;
 
     void SetServiceType(std::string service_type) { service_type_ = service_type; }
 
@@ -34,7 +31,7 @@ class BusinessDelegate {
 
    private:
     std::string service_type_;
-    BusinessLookUp* business_look_up_ = nullptr;
+    std::shared_ptr<BusinessLookUp> business_look_up_ = nullptr;
     std::shared_ptr<BusinessService> business_service_ = nullptr;
 };
 

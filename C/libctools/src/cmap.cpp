@@ -77,14 +77,13 @@ void *cmap_index_get(void *data, int index) {
     return it->second;
 }
 
-void cmap_traversal_handle(void *data, void *parm,
-                           int (*enu)(void *parm, int64_t key, void *elem)) {
+void cmap_traversal_handle(void *data, void *parm, int (*enu)(void *parm, int64_t key, void *elem)) {
     CMap *map_data = reinterpret_cast<CMap *>(data);
     if (!map_data || map_data->empty()) return;
 
     CMap::iterator it;
 
-    for (it = map_data->begin(); it != map_data->end(); it++) {
+    for (it = map_data->begin(); it != map_data->end(); ++it) {
         enu(parm, it->first, it->second);
     }
 }
@@ -96,39 +95,35 @@ void cmap_get_all_keys_and_values(void *data, int64_t *keys, void **values) {
     CMap::iterator it;
 
     int index = 0;
-    for (it = map_data->begin(); it != map_data->end(); it++) {
+    for (it = map_data->begin(); it != map_data->end(); ++it) {
         if (NULL != keys) {
             keys[index] = it->first;
         }
         if (NULL != values) {
             values[index] = it->second;
         }
-        index ++;
+        index++;
     }
 }
 
-void cmap_get_all_keys(void *data, int64_t *toArray) {
-    cmap_get_all_keys_and_values(data, toArray, NULL);
-}
+void cmap_get_all_keys(void *data, int64_t *toArray) { cmap_get_all_keys_and_values(data, toArray, NULL); }
 
-void cmap_get_all_values(void *data, void **toArray) {
-    cmap_get_all_keys_and_values(data, NULL, toArray);
-}
+void cmap_get_all_values(void *data, void **toArray) { cmap_get_all_keys_and_values(data, NULL, toArray); }
 
 int64_t cmap_get_key_for_value(void *data, char *value) {
     int errorRet = -1;
-    
+
     CMap *map_data = reinterpret_cast<CMap *>(data);
     if (!map_data || map_data->empty()) return errorRet;
-    
+
     CMap::iterator it;
-    for (it = map_data->begin(); it != map_data->end(); it++) {
+    for (it = map_data->begin(); it != map_data->end(); ++it) {
         char *stringValue = (char *)it->second;
         if (strcmp(stringValue, value) == 0) {
             return it->first;
         }
     }
-    
+
     return errorRet;
 }
 
@@ -140,7 +135,7 @@ int64_t cmap_get_min_key(void *data) {
 
     int64_t min_key = it->first;
 
-    for (; it != map_data->end(); it++) {
+    for (; it != map_data->end(); ++it) {
         min_key = min_key < it->first ? min_key : it->first;
     }
 
