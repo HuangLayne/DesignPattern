@@ -1,0 +1,19 @@
+//
+//  Context.h
+//  23.StrategyPattern
+//
+//  Created by 黄磊 on 2020/11/22.
+//
+
+#import "StrategyProtocol.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Context : NSObject
+
+- (instancetype)initWithStrategy:(id<StrategyProtocol>)strategy;
+- (int)executeStrategyWithNum1:(int)num1 Num2:(int)num2;
+
+@end
+
+NS_ASSUME_NONNULL_END
